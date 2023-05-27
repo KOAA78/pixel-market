@@ -14,6 +14,14 @@ const routes = [
         redirect: 'login'
     },
     {
+        path: '/test',
+        name: 'test',
+        component: () => import('../views/test'),
+        meta: {
+            title: '测试页面'
+        }
+    },
+    {
         path: '/signin',
         name: 'signin',
         component: () => import('../views/signin'),
@@ -46,6 +54,14 @@ const routes = [
         }
     },
     {
+        path: '/chat/:recipient',
+        name: 'chat',
+        component: () => import('../views/chat'),
+        meta: {
+            title: '聊天'
+        }
+    },
+    {
         path: '/profile',
         name: 'profile',
         component: () => import('../views/profile'),
@@ -53,7 +69,22 @@ const routes = [
             title: '个人中心'
         }
     },
-
+    {
+        path: '/issue',
+        name: 'issue',
+        component: () => import('../views/issue'),
+        meta: {
+            title: '发布商品'
+        }
+    },
+    {
+        path: '/details/:mid',
+        name: 'details',
+        component: () => import('../views/details'),
+        meta: {
+            title: '商品详情'
+        }
+    }
 ]
 
 const router = new VueRouter({

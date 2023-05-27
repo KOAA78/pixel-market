@@ -10,13 +10,13 @@
           type="text"
           placeholder="请输入手机号"
           class="phone-input"
-          v-model="loginForm.userPhone"
+          v-model="loginForm.phonenumber"
         />
         <input
           type="password"
           placeholder="请输入密码"
           class="pwd-input"
-          v-model="loginForm.userPwd"
+          v-model="loginForm.password"
         />
         <v-btn class="login-btn" large @click="login">
           <v-icon color="brown lighten-3">mdi-airplane</v-icon>
@@ -36,22 +36,25 @@ import router from "@/router/router";
 
 export default {
   created() {
-    localStorage.removeItem("authToken");
+    // localStorage.removeItem("authToken");
   },
   data() {
     return {
       loginForm: {
-        userPhone: "",
-        userPwd: "",
+        phonenumber: "",
+        password: "",
       },
     };
   },
   methods: {
     login() {
       this.$api.userApi.login(this.loginForm).then((resp) => {
-        if (resp.code == 1000) {
-          localStorage.setItem("authToken", resp.data);
-          router.push("/profile/");
+        if (resp.code == 0) {
+          // localStorage.setItem("token", resp.data.userId);
+          sessionStorage.setItem("userId", resp.data.userId);
+          this.$store.commit("setUserId", resp.data.userId);
+          this.$store.commit("setToken", resp.data.token);
+          router.push("/home");
         }
       });
     },

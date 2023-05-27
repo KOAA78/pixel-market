@@ -1,16 +1,23 @@
+/*
+ * @Descripttion: 
+ * @Author: Rui Lin
+ * @Date: 2023-05-06 08:23:24
+ */
 import axios from 'axios'
+import store from '../store/index.js';
 
 import { Notification } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-const token = localStorage.getItem("authToken")
+// const token = localStorage.getItem("token")
+const token = store.state.token
 
 const instance = axios.create({
   baseURL: '/api', //实际跨域地址写在vue.config.js即可
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
-    'authToken': token
+    'AuthToken': token
   }
 })
 
@@ -25,11 +32,11 @@ instance.interceptors.request.use(config => {
 instance.interceptors.response.use(response => {
   let code = response.data.code;
   switch (code) {
-    case 1000:
+    case 0:
       return response.data
     default:
       Notification({
-        message: response.data.msg,
+        message: response.data.message,
         offset: 115,
         type: 'warning',
         duration: 2000

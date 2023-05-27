@@ -19,6 +19,10 @@ export default {
   data() {
     return { isRouterAlive: true };
   },
+    mounted() {
+    // 使用this.$store.state.XXX可以直接访问到仓库中的状态
+    this.$store.state;
+  },
   methods: {
     reload() {
       this.isRouterAlive = false;

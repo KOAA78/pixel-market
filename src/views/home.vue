@@ -38,6 +38,7 @@
       color="brown lighten-3"
       right
       class="add-btn"
+      to="/issue"
     >
       <v-icon color="white">mdi-plus</v-icon></v-btn
     >

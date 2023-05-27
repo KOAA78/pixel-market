@@ -21,7 +21,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 import Vconsole from "vconsole";
 
-import Vuex from 'vuex'
+import store from './store/index.js'
 
 
 //开发环境使用，生产环境取消
@@ -31,7 +31,6 @@ import Vuex from 'vuex'
 
 Vue.config.productionTip = false
 Vue.prototype.$api = api
-
 Vue.prototype.$notify = Notification;
 
 Vue.use(VueAxios, axios)
@@ -43,12 +42,10 @@ Vue.use(VuetifyDialog, {
   }
 })
 
-Vue.use(Vuex)
-
-
 new Vue({
   render: h => h(App),
   router,
   axios,
-  vuetify
+  vuetify,
+  store
 }).$mount('#app')

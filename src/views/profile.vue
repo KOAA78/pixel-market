@@ -42,6 +42,8 @@ export default {
     bottNav,
   },
   created() {
+    console.log(this.$store)
+    console.log( this.$store.state.userId);
     this.$api.userApi.getInfo().then((resp) => {
       this.userInfo.userName = resp.data.name;
       if (resp.data.avatar == "") {

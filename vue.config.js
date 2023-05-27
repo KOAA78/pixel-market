@@ -1,3 +1,8 @@
+/*
+ * @Descripttion: 
+ * @Author: Rui Lin
+ * @Date: 2023-05-06 08:23:24
+ */
 const { defineConfig } = require('@vue/cli-service')
 
 const path = require("path");
@@ -19,7 +24,7 @@ module.exports = defineConfig({
     port: "8071",
     proxy: {
       '/api': {
-        target: 'http://localhost:8091',
+        target: 'http://localhost:8090',
         ws: true,
         secure: false,
         changeOrigin: true,
