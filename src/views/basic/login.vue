@@ -1,3 +1,9 @@
+<!--
+ * @Descripttion: 
+ * @Author: Rui Lin
+ * @Date: 2023-05-06 08:23:24
+-->
+
 <template>
   <div class="login-view">
     <div class="box-intro">
@@ -25,14 +31,14 @@
       </form>
     </div>
     <div class="box-cover">
-      <img src="../assets/img/island.png" />
+      <img src="@/assets/img/island.png" />
       <router-link to="signin" id="login-link">去注册帐号</router-link>
     </div>
   </div>
 </template>
 
 <script>
-import router from "@/router/router";
+// import router from "@/router/router";
 
 export default {
   created() {
@@ -54,7 +60,7 @@ export default {
           sessionStorage.setItem("userId", resp.data.userId);
           this.$store.commit("setUserId", resp.data.userId);
           this.$store.commit("setToken", resp.data.token);
-          router.push("/home");
+          this.router.push("/home");
         }
       });
     },

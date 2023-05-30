@@ -1,5 +1,5 @@
 <!--
- * @Descripttion: 聊天页面（未完成）
+ * @Descripttion: 聊天页面（有毛病，暂搁置）
  * @Author: Rui Lin
  * @Date: 2023-05-17 00:10:15
 -->
@@ -7,9 +7,8 @@
 <template>
   <div>
     <v-toolbar color="brown lighten-4" flat>
-      <v-spacer></v-spacer>
+      <v-btn icon to="/message"><v-icon> mdi-arrow-left </v-icon></v-btn>
       <v-toolbar-title>用户名</v-toolbar-title>
-      <v-spacer></v-spacer>
     </v-toolbar>
     <div class="chat-container">
       <div class="messages">
@@ -63,7 +62,6 @@ export default {
       this.stompClient.connect({}, (frame) => {
         console.log("连接成功");
         this.subscribeMessages();
-
       });
     },
     sendMessage() {
@@ -78,7 +76,7 @@ export default {
     },
     subscribeMessages() {
       // const recipientQueue = `/user/${this.newMessage.sender}/queue/messages`;
-            const recipientQueue = "/user/queue/messages";
+      const recipientQueue = "/user/queue/messages";
       this.stompClient.subscribe(recipientQueue, (message) => {
         const receivedMessage = JSON.parse(message.body);
         this.messages.push(receivedMessage);

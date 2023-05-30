@@ -39,7 +39,7 @@
       </form>
     </div>
     <div class="box-cover">
-      <img src="../assets/img/dinosaur.png" />
+      <img src="@/assets/img/dinosaur.png" />
       <router-link to="login" id="login-link">登录已有帐号</router-link>
     </div>
   </div>

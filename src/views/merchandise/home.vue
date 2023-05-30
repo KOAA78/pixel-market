@@ -13,6 +13,7 @@
         class="mx-auto search-input"
         append-icon="mdi-magnify"
       >
+      <v-icon>mdi-magnify</v-icon>
       </v-text-field>
     </div>
     <div class="mx-auto zone-container">
@@ -21,12 +22,12 @@
           v-for="card in merchandise"
           :key="card.title"
           :cols="24"
-          style="padding-top:0"
+          style="padding-top: 0"
         >
-          <v-card height="200px" rounded="xl">
+          <v-card height="200px" rounded="lg">
             <v-img :src="card.src" height="140px"></v-img>
-            <h4 class="pa-2">{{ card.title }}</h4>
-            <p>￥{{ card.price }}</p>
+            <h4 class="pa-2 brown--text">{{ card.title }}</h4>
+            <p class="red--text">￥{{ card.price }}</p>
           </v-card>
         </v-col>
       </v-row>
@@ -47,7 +48,7 @@
 </template>
 
 <script>
-import bottNav from "../components/bottom-nav.vue";
+import bottNav from "@/components/bottom-nav.vue";
 export default {
   components: {
     bottNav,
@@ -84,7 +85,7 @@ export default {
   background: #ffffff;
   position: relative;
   top: 10px;
-  border-radius: 15px;
+  border-radius: 5px;
 }
 
 .search-input {
@@ -116,7 +117,6 @@ export default {
   position: relative;
   bottom: 14px;
   right: 12px;
-  color: rgba(102, 67, 19, 0.586);
 }
 
 .add-btn {

@@ -1,10 +1,10 @@
 <template>
   <v-main>
     <!-- appbar -->
-    <v-app-bar color="brown lighten-4" class="pt-1">
-      <v-app-bar-nav-icon
-        ><v-icon large>mdi-chevron-left</v-icon>
-      </v-app-bar-nav-icon>
+    <v-app-bar color="brown lighten-4" elevation="0">
+      <v-app-bar-nav-icon to="/profile"
+        ><v-icon large>mdi-chevron-left</v-icon></v-app-bar-nav-icon
+      >
       <v-container>
         <v-row>
           <v-col cols="3"> <v-app-bar-title></v-app-bar-title></v-col>
@@ -25,12 +25,12 @@
       show-arrows
       color="white"
       hide-slider
-      class="align-center"
-      height="8vh"
+      class="align-center ma-0"
+      height="7vh"
     >
       <v-tab
         v-for="(tab, index) in tabList"
-        class="my-4 mx-1"
+        class="my-4 mx-3"
         style="height: 50%; min-width: 8vw"
         :key="index"
         active-class="Selected"
@@ -40,7 +40,7 @@
     <!-- 横向导航栏-->
 
     <!-- 显示内容 -->
-    <v-tabs-items v-model="tab">
+    <v-tabs-items v-model="tab" class="pa-0">
       <v-tab-item v-for="(page, index) in pageLists" :key="index">
         <v-card elevation="0">
           <empty
@@ -70,8 +70,8 @@
 </template>
 
 <script>
-import empty from "./EmptyBack.vue";
-import item from "./ListItem.vue";
+import empty from "@/components/EmptyBack.vue";
+import item from "@/components/ListItem.vue";
 export default {
   mounted() {
     this.initPages();
@@ -84,17 +84,17 @@ export default {
       tabList: ["在卖", "草稿", "已下架"],
       soldingList: [
         {
-          state: "审核中",
+          // state: "审核中",
           title: "这是一条测试标题",
-          content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
           picture:
             "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
           price: 99,
         },
         {
-          state: "已发布",
+          // state: "已发布",
           title: "这是一条测试标题",
-          content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
           picture:
             "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
           price: 99,
@@ -110,9 +110,9 @@ export default {
       // ],
       draftList: [
         {
-          state: "草稿已保存",
+          // state: "草稿已保存",
           title: "这是一条测试标题",
-          content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
           picture:
             "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
           price: 99,
@@ -128,9 +128,9 @@ export default {
       // ],
       downList: [
         {
-          state: "已下架",
+          // state: "已下架",
           title: "这是一条测试标题",
-          content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
           picture:
             "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
           price: 2999,

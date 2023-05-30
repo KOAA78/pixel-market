@@ -3,88 +3,20 @@
  * @Author: Rui Lin
  * @Date: 2023-05-06 08:23:24
  */
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router';
+import basicRoutes from './basic-routes';
+import managementRoutes from './management-routes';
+import messageRoutes from './message-routes';
+import merchandiseRoutes from './merchandise-router';
 
 import { Notification } from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';
 
 const routes = [
-    {
-        path: '/',
-        redirect: 'login'
-    },
-    {
-        path: '/test',
-        name: 'test',
-        component: () => import('../views/test'),
-        meta: {
-            title: '测试页面'
-        }
-    },
-    {
-        path: '/signin',
-        name: 'signin',
-        component: () => import('../views/signin'),
-        meta: {
-            title: '用户注册'
-        }
-    },
-    {
-        path: '/login',
-        name: 'login',
-        component: () => import('../views/login'),
-        meta: {
-            title: '用户登录'
-        }
-    },
-    {
-        path: '/home',
-        name: 'home',
-        component: () => import('../views/home'),
-        meta: {
-            title: '主页'
-        }
-    },
-    {
-        path: '/message',
-        name: 'message',
-        component: () => import('../views/message'),
-        meta: {
-            title: '消息'
-        }
-    },
-    {
-        path: '/chat/:recipient',
-        name: 'chat',
-        component: () => import('../views/chat'),
-        meta: {
-            title: '聊天'
-        }
-    },
-    {
-        path: '/profile',
-        name: 'profile',
-        component: () => import('../views/profile'),
-        meta: {
-            title: '个人中心'
-        }
-    },
-    {
-        path: '/issue',
-        name: 'issue',
-        component: () => import('../views/issue'),
-        meta: {
-            title: '发布商品'
-        }
-    },
-    {
-        path: '/details/:mid',
-        name: 'details',
-        component: () => import('../views/details'),
-        meta: {
-            title: '商品详情'
-        }
-    }
+    ...basicRoutes,
+    ...managementRoutes,
+    ...messageRoutes,
+    ...merchandiseRoutes
 ]
 
 const router = new VueRouter({

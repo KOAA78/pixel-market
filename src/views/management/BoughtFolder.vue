@@ -1,10 +1,10 @@
 <template>
   <v-main>
     <!-- appbar -->
-    <v-app-bar color="brown lighten-4" class="pt-1">
-      <v-app-bar-nav-icon
-        ><v-icon large>mdi-chevron-left</v-icon>
-      </v-app-bar-nav-icon>
+    <v-app-bar color="brown lighten-4" elevation="0">
+      <v-app-bar-nav-icon to="/profile"
+        ><v-icon large>mdi-chevron-left</v-icon></v-app-bar-nav-icon
+      >
       <v-container>
         <v-row>
           <v-col cols="3"> <v-app-bar-title></v-app-bar-title></v-col>
@@ -26,12 +26,12 @@
       color="white"
       hide-slider
       class="align-center"
-      height="8vh"
+      height="7vh"
     >
       <v-tab
         v-for="(tab, index) in tabList"
-        class="my-4 mx-1"
-        style="height: 50%; min-width: 8vw"
+        class="my-3 ml-5"
+        style="height: 50%; min-width: 7vw"
         :key="index"
         active-class="Selected"
         >{{ tab }}
@@ -51,7 +51,7 @@
             <template v-slot:title>你还没有买过宝贝呢 </template>
             <template v-slot:subtitle>快点去挑选心仪的宝贝吧 </template>
             <template v-slot:button
-              ><v-btn rounded color="pink lighten-4" class="font-weight-bold">
+              ><v-btn rounded color="orange lighten-4" class="font-weight-bold">
                 去市场</v-btn
               >
             </template>
@@ -73,8 +73,8 @@
 </template>
   
   <script>
-import empty from "./EmptyBack.vue";
-import item from "./ListItem.vue";
+import empty from "@/components/EmptyBack.vue";
+import item from "@/components/ListItem.vue";
 export default {
   mounted() {
     this.initPages();
@@ -84,7 +84,7 @@ export default {
   data() {
     return {
       tab: null,
-      tabList: ["全部", "已付款", "已发货", "已完成", "已退款"],
+      tabList: ["全部", "已付款", "已发货", "已完成"],
       pageLists: [],
       allList: [
         {
@@ -92,8 +92,7 @@ export default {
           account: "271920984@qq.com",
           state: "已付款",
           title: "这是一条测试标题",
-          content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture: "这是图片的url",
+          picture:  "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
           price: 22,
         },
         {
@@ -101,8 +100,7 @@ export default {
           account: "271920984@qq.com",
           state: "已发货",
           title: "这是一条测试标题",
-          content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture: "这是图片的url",
+         picture:  "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
           price: 22,
         },
       ],
@@ -112,8 +110,7 @@ export default {
           account: "271920984@qq.com",
           state: "已付款",
           title: "这是一条测试标题",
-          content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture: "这是图片的url",
+          picture:  "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
           price: 22,
         },
       ],
@@ -123,8 +120,7 @@ export default {
           account: "271920984@qq.com",
           state: "已发货",
           title: "这是一条测试标题",
-          content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture: "这是图片的url",
+          picture:  "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
           price: 22,
         },
       ],
@@ -134,9 +130,7 @@ export default {
           account: "271920984@qq.com",
           state: "已完成",
           title: "这是一条测试标题",
-          content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture: "这是图片的url",
-          money: "实际付款:999",
+          picture:  "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
           price: 99,
         },
       ],
@@ -146,9 +140,7 @@ export default {
           account: "271920984@qq.com",
           state: "已退款",
           title: "这是一条测试标题",
-          content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-
-          picture: "这是图片的url",
+          picture:  "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
           price: 99,
         },
       ],

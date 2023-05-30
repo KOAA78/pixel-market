@@ -1,49 +1,60 @@
+<!--
+ * @Descripttion: 
+ * @Author: Rui Lin
+ * @Date: 2023-05-06 08:23:24
+-->
+
 <template>
   <div class="profile-view">
     <bott-nav></bott-nav>
     <div class="user-info">
       <div class="info-content">
         <v-avatar size="72px" class="user-avatar">
-          <v-img
-            alt="Avatar"
-            :src="userInfo.userAvatar"
-          ></v-img
+          <v-img alt="Avatar" :src="userInfo.userAvatar"></v-img
         ></v-avatar>
         <span class="user-name">{{ userInfo.userName }}</span>
       </div>
     </div>
     <div class="user-operation">
       <div class="user-setting">
-        <v-icon right>mdi-heart-outline</v-icon>
-        <p>已收藏</p>
+        <router-link to="/favor">
+          <v-icon right>mdi-heart-outline</v-icon>
+          <p>已收藏</p>
+        </router-link>
       </div>
       <div class="user-setting">
-        <v-icon right>mdi-cart-arrow-up</v-icon>
-        <p>已发布</p>
+        <router-link to="/published">
+          <v-icon right>mdi-cart-arrow-up</v-icon>
+          <p>已发布</p>
+        </router-link>
       </div>
       <div class="user-setting">
+          <router-link to="/sold">
         <v-icon right>mdi-currency-usd</v-icon>
         <p>已卖出</p>
+        </router-link>
       </div>
       <div class="user-setting">
+         <router-link to="/bought">
         <v-icon right>mdi-archive-check-outline</v-icon>
         <p>已买到</p>
+        </router-link>
       </div>
     </div>
-    <img src="../assets/img/boxes.png" class="deco-box" />
+    <img src="@/assets/img/boxes.png" class="deco-box" />
   </div>
 </template>
 
 <script>
 import router from "@/router/router";
-import bottNav from "../components/bottom-nav.vue";
+import bottNav from "../../components/bottom-nav.vue";
 export default {
   components: {
     bottNav,
   },
   created() {
-    console.log(this.$store)
-    console.log( this.$store.state.userId);
+    console.log(this.$store);
+    console.log(this.$store.state.userId);
     this.$api.userApi.getInfo().then((resp) => {
       this.userInfo.userName = resp.data.name;
       if (resp.data.avatar == "") {
