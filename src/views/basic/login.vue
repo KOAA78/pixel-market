@@ -16,7 +16,7 @@
           type="text"
           placeholder="请输入手机号"
           class="phone-input"
-          v-model="loginForm.phonenumber"
+          v-model="loginForm.phone"
         />
         <input
           type="password"
@@ -38,7 +38,6 @@
 </template>
 
 <script>
-// import router from "@/router/router";
 
 export default {
   created() {
@@ -47,20 +46,18 @@ export default {
   data() {
     return {
       loginForm: {
-        phonenumber: "",
+        phone: "",
         password: "",
       },
     };
   },
   methods: {
     login() {
+      console.log(this.loginForm.phone);
       this.$api.userApi.login(this.loginForm).then((resp) => {
         if (resp.code == 0) {
-          // localStorage.setItem("token", resp.data.userId);
-          sessionStorage.setItem("userId", resp.data.userId);
-          this.$store.commit("setUserId", resp.data.userId);
-          this.$store.commit("setToken", resp.data.token);
-          this.router.push("/home");
+          this.$store.commit("setToken", resp.data);
+          this.$router.push("/home");
         }
       });
     },

@@ -13,19 +13,23 @@
         class="mx-auto search-input"
         append-icon="mdi-magnify"
       >
-      <v-icon>mdi-magnify</v-icon>
+        <v-icon>mdi-magnify</v-icon>
       </v-text-field>
     </div>
     <div class="mx-auto zone-container">
       <v-row>
         <v-col
           v-for="card in merchandise"
-          :key="card.title"
+          :key="card.merchandiseId"
           :cols="24"
           style="padding-top: 0"
         >
-          <v-card height="200px" rounded="lg">
-            <v-img :src="card.src" height="140px"></v-img>
+          <v-card
+            height="200px"
+            rounded="lg"
+            @click="displayDetails(card.merchandiseId)"
+          >
+            <v-img :src="card.imgCover" height="140px"></v-img>
             <h4 class="pa-2 brown--text">{{ card.title }}</h4>
             <p class="red--text">￥{{ card.price }}</p>
           </v-card>
@@ -53,21 +57,31 @@ export default {
   components: {
     bottNav,
   },
+  created() {
+    this.getOverviewList();
+  },
   data() {
     return {
+      page: 0,
       merchandise: [
         {
-          title: "测试一下长标题能有多长才会隐藏",
-          src: "https://s2.loli.net/2023/05/07/RaxzFbhBeik79H5.png",
-          price: "123",
-        },
-        {
-          title: "测试二号",
-          src: "https://s2.loli.net/2023/05/07/RaxzFbhBeik79H5.png",
-          price: "456789",
+          merchandiseId: "1664315799854874625",
+          title: "测试商品",
+          price: 999,
+          imgCover: "https://s2.loli.net/2023/05/07/RaxzFbhBeik79H5.png",
         },
       ],
     };
+  },
+  methods: {
+    getOverviewList() {
+      this.$api.merchandiseApi.getOverviewList(this.page).then((resp) => {
+        this.merchandise = resp.data;
+      });
+    },
+    displayDetails(merchandiseId) {
+      this.$router.push("/details/" + merchandiseId);
+    },
   },
 };
 </script>

@@ -24,8 +24,8 @@
     </v-list>
     <v-list>
       <v-list-item link to="/chat/01">
-        <v-list-item-avatar>
-          <v-avatar color="brown" size="36"></v-avatar>
+        <v-list-item-avatar class="ml-1">
+          <v-avatar color="brown" size="72"></v-avatar>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>用户名</v-list-item-title>

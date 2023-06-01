@@ -81,7 +81,7 @@ export default {
   data() {
     return {
       tab: null,
-      tabList: ["在卖", "草稿", "已下架"],
+      tabList: ["正在卖", "已下架"],
       soldingList: [
         {
           // state: "审核中",

@@ -17,15 +17,15 @@
           >
           <v-col xs="1" sm="4" md="4" lg="4" xl="4"> </v-col>
           <v-col xs="4" sm="3" md="3" lg="3" xl="3">
-            <v-btn
+            <!-- <v-btn
               block
               outlined
               rounded
               class="px-0 brown--text"
               style="border: 2px solid lightgray"
               >存草稿</v-btn
-            ></v-col
-          >
+            > -->
+          </v-col>
 
           <v-col xs="4" sm="3" md="3" lg="3" xl="3">
             <v-btn
@@ -34,6 +34,7 @@
               rounded
               class="px-0 brown--text"
               style="border: 2px solid lightgray"
+              @click="addMerchandise"
               >发布</v-btn
             ></v-col
           >
@@ -55,14 +56,14 @@
           ><span
             class="grey--text text-lighten-1"
             style="font-size: 15px"
-            v-if="publishForm.game == ''"
+            v-if="publishForm.tagId == ''"
             >请选择游戏</span
           >
           <span
             class="grey--text text-darken-1"
             style="font-size: 15px"
             v-else
-            >{{ publishForm.game }}</span
+            >{{ chosenTag }}</span
           >
           <v-btn icon class="mx-1" @click="dialogState.gameChoose = true"
             ><v-icon x-large>mdi-chevron-right</v-icon></v-btn
@@ -75,9 +76,15 @@
     <!-- 滚动游戏项 -->
     <v-sheet class="mx-auto mt-5" max-width="600">
       <v-slide-group multiple>
-        <v-slide-item v-for="(game, key) in gameSlideLists" :key="key">
-          <v-btn class="mx-2" depressed rounded small @click="selectGame(game)">
-            {{ game }}
+        <v-slide-item v-for="tag in tags" :key="tag.tagId">
+          <v-btn
+            class="mx-2"
+            depressed
+            rounded
+            small
+            @click="selectGame(tag.tagId, tag.tagName)"
+          >
+            {{ tag.tagName }}
           </v-btn>
         </v-slide-item>
       </v-slide-group>
@@ -117,7 +124,7 @@
             append-icon="mdi-google-downasaur"
             label="账号描述"
             placeholder="买家比较关心游戏的等级，是否为一手账号等等~"
-            v-model="publishForm.description"
+            v-model="publishForm.introduction"
             background-color="grey lighten-4"
             color="brown darken-1"
             dense
@@ -133,16 +140,17 @@
     </v-container>
 
     <!-- 上传图片 -->
+    <!-- FIXME: 一次性上传多张图片 -->
     <v-container>
       <v-row class="mx-1">
         <v-col cols="4" class="d-flex justify-center">
-          <uploaderImg></uploaderImg>
+          <uploaderImg @change="getImgUrl"></uploaderImg>
         </v-col>
         <v-col cols="4" class="d-flex justify-center">
-          <uploaderImg></uploaderImg>
+          <uploaderImg @change="getImgUrl"></uploaderImg>
         </v-col>
         <v-col cols="4" class="d-flex justify-center">
-          <uploaderImg></uploaderImg>
+          <uploaderImg @change="getImgUrl"></uploaderImg>
         </v-col>
       </v-row>
     </v-container>
@@ -159,7 +167,11 @@
           ><span style="font-size: 20px">价格</span></v-col
         >
         <v-col cols="6">
-          <v-text-field prefix="￥" class="price-input"></v-text-field>
+          <v-text-field
+            prefix="￥"
+            class="price-input"
+            v-model="publishForm.price"
+          ></v-text-field>
         </v-col> </v-row
     ></v-container>
     <!-- 价格栏 -->
@@ -182,11 +194,11 @@
                 style="display: inline-block"
                 class="mx-4 my-3"
                 small
-                v-for="(game, key) in gameSlideLists"
-                :key="key"
-                @click="selectGame(game)"
+                v-for="tag in tags"
+                :key="tag.tagId"
+                @click="selectGame(tag.tagId, tag.tagName)"
               >
-                {{ game }}
+                {{ tag.tagName }}
               </v-btn>
             </v-card>
           </v-col></v-row
@@ -199,35 +211,63 @@
 
 <script>
 import uploaderImg from "@/components/img-upload.vue";
+
+var pictureArr = [];
+
 export default {
-  data() {
-    return {
-      gameSlideLists: ["王者荣耀", "原神", "和平精英", "战争雷霆", "第五人格"],
-      publishForm: {
-        game: "",
-        title: "",
-        description: "",
-        price: 0.0,
-      },
-      Money: { Yuan: 0, Cent: 0 },
-      dialogState: {
-        gameChoose: false,
-        priceChoose: false,
-      },
-    };
-  },
   components: {
     uploaderImg,
   },
+  created() {
+    this.displayTag();
+  },
+  data() {
+    return {
+      chosenTag: "",
+      tags: [
+        {
+          tagId: "1",
+          tagName: "王者荣耀",
+        },
+      ],
+      publishForm: {
+        tagId: "",
+        title: "",
+        introduction: "",
+        price: "",
+        pictures: pictureArr,
+      },
+      dialogState: {
+        gameChoose: false,
+      },
+    };
+  },
   methods: {
     reload() {},
-    selectGame(v) {
-      this.publishForm.game = v;
+    selectGame(tagId, tagName) {
+      this.publishForm.tagId = tagId;
+      this.chosenTag = tagName;
       this.dialogState.gameChoose = false;
     },
-    selectMoney(v, b) {
-      this.dialogState.priceChoose = false;
-      this.publishForm.price = parseFloat(v + "." + b);
+    displayTag() {
+      this.$api.merchandiseApi.displayTag().then((resp) => {
+        this.tags = resp.data;
+      });
+    },
+    getImgUrl(imgSrc) {
+      let formData = new FormData();
+      formData.append("file", imgSrc);
+      // TODO 遮罩显示上传进度【找小图片测试】
+      this.$api.merchandiseApi.uploadImg(formData).then((resp) => {
+        console.log(resp.data);
+        pictureArr.push(resp.data);
+        console.log(pictureArr);
+      });
+    },
+    addMerchandise() {
+      this.$api.merchandiseApi.addMerchandise(this.publishForm).then((resp) => {
+          // this.$router.push("/details/"+resp.data);
+      });
     },
   },
 };
