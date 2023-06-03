@@ -8,7 +8,7 @@ import App from './App.vue'
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import api from './apis/index.js'
+import api from './apis/api.js'
 
 import VueRouter from 'vue-router'
 import router from './router/router'

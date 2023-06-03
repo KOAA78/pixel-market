@@ -53,8 +53,8 @@ export default {
 <style scoped>
 .upload-container {
   position: relative;
-  width: 4rem;
-  height: 4rem;
+  width: 5.5rem;
+  height: 5.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,8 +67,8 @@ export default {
 }
 .logo-container {
   position: relative;
-  width: 4rem;
-  height: 4rem;
+  width: 5.5rem;
+  height: 5.5rem;
   cursor: pointer;
   z-index: 1;
   border-radius: 10px;
@@ -80,10 +80,10 @@ export default {
 .preview-image {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 48%;
   transform: translate(-50%, -50%);
-  width: 4rem;
-  height: 4rem;
+  width: 5.2rem;
+  height: 5.2rem;
   object-fit: cover;
   border-radius: 10px;
 }

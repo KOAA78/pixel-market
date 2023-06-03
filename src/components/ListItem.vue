@@ -44,7 +44,7 @@ buttons是对象数组，每个对象必须包括buttonName以及对应的button
           ></v-col>
           <v-col cols="4" class="d-flex justify-end"
             ><v-chip
-              color="green lighten-2"
+              color="brown lighten-4"
               v-if="itemInfo.state != null && itemInfo.state != ''"
               >{{ itemInfo.state }}<slot name="state"></slot></v-chip
           ></v-col>
@@ -81,8 +81,8 @@ buttons是对象数组，每个对象必须包括buttonName以及对应的button
             ></v-list-item-subtitle>
             <v-list-item-action-text
               class="red--text font-weight-bold text-h6 d-flex py-2 align-center"
-              ><span><slot name="price"></slot>{{ itemInfo.price }}</span
-              >￥ <slot name="money"></slot>
+              ><span>￥<slot name="price"></slot>{{ itemInfo.price }}</span
+              ><slot name="money"></slot>
               <div
                 v-if="itemInfo.money != null"
                 style="

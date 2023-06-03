@@ -15,27 +15,19 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    userId:"",
     token:"",
   },
   mutations: {
-    setUserId(state, userId) {
-      state.userId = userId;
-    },
     setToken(state, token) {
       state.token = token;
     }
   },
   actions: {
-    updateUserId({ commit }, userId) {
-      commit('setUserId', userId);
-    },
     updateToken({ commit }, token) {
       commit('setToken', token);
     }
   },
   getters: {
-    getUserId: state => state.userId,
     getToken: state => state.token
   }
 
