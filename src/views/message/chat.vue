@@ -7,7 +7,9 @@
 <template>
   <div>
     <v-toolbar color="brown lighten-4" flat>
-      <v-btn icon to="/message"><v-icon> mdi-arrow-left </v-icon></v-btn>
+      <v-btn icon @click="backLastPage"
+        ><v-icon> mdi-arrow-left </v-icon></v-btn
+      >
       <v-toolbar-title>用户名</v-toolbar-title>
     </v-toolbar>
     <div class="chat-container">
@@ -52,10 +54,13 @@ export default {
   },
   created() {
     this.connection();
-    console.log("发送者：" + this.newMessage.sender);
-    console.log("接收者：" + this.newMessage.recipient);
+    // console.log("发送者：" + this.newMessage.sender);
+    // console.log("接收者：" + this.newMessage.recipient);
   },
   methods: {
+    backLastPage() {
+      this.$router.go(-1);
+    },
     connection() {
       const socket = new SockJS("http://localhost:8090/socket");
       this.stompClient = Stomp.over(socket);

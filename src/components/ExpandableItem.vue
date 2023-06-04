@@ -87,18 +87,47 @@ export default {
     buttonSwitch(itemType) {
       switch (itemType) {
         case "已审核": {
-          return [{ name: "下架", buttonEvent: () => {}, color: "red" }];
+          return [
+            { name: "下架", buttonEvent: () => {}, color: "red lighten-4" },
+          ];
         }
         case "未审核": {
           return [
-            { name: "下架", buttonEvent: () => {}, color: "red" },
+            { name: "下架", buttonEvent: () => {}, color: "red lighten-4" },
             { name: "通过审核", buttonEvent: () => {}, color: "green" },
           ];
         }
         case "被举报": {
           return [
-            { name: "下架", buttonEvent: () => {}, color: "red" },
-            { name: "举报不通过", buttonEvent: () => {}, color: "primary" },
+            {
+              name: "下架",
+              buttonEvent: () => {
+                // 设置审核状态为已处理
+                this.$api.reportedApi
+                  .handleReported({
+                    reportedId: this.itemInfo.id,
+                    state: 1,
+                  })
+                  .then((resp) => {
+                    // TODO:且刷新页面
+                  });
+                // 且下架商品
+                this.$api.merchandiseApi.outMerchandise(this.itemInfo.mid);
+              },
+              color: "red lighten-4",
+            },
+            {
+              name: "举报不通过",
+              buttonEvent: () => {
+                this.$api.reportedApi
+                  .handleReported({
+                    reportedId: this.itemInfo.reportedId,
+                    state: 1,
+                  })
+                  .then((resp) => {});
+              },
+              color: "primary",
+            },
           ];
         }
         case "": {

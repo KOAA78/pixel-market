@@ -40,7 +40,7 @@
     <!-- 横向导航栏-->
 
     <!-- 显示内容 -->
-    <v-tabs-items v-model="tab" class="pa-0">
+    <v-tabs-items v-model="tab">
       <v-tab-item v-for="(page, index) in pageLists" :key="index">
         <v-card elevation="0">
           <empty
@@ -51,7 +51,8 @@
             <template v-slot:subtitle
               >别人的世界花里胡哨，你的世界空空如也
             </template>
-            <template v-slot:button>发布宝贝 </template>
+            <!-- FIXME: 如何插入跳转 -->
+            <template v-slot:button >发布宝贝 </template>
           </empty>
           <v-list class="mx-2" v-else>
             <v-list-item-group>
@@ -73,96 +74,60 @@
 import empty from "@/components/EmptyBack.vue";
 import item from "@/components/ListItem.vue";
 export default {
-  mounted() {
-    this.initPages();
-  },
-  updated() {},
   components: { empty, item },
   data() {
     return {
+      page: 1,
       tab: null,
-      tabList: ["正在卖", "已下架"],
-      soldingList: [
-        {
-          // state: "审核中",
-          title: "这是一条测试标题",
-          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture:
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          price: 99,
-        },
-        {
-          // state: "已发布",
-          title: "这是一条测试标题",
-          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture:
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          price: 99,
-        },
-      ],
-      // soldingButtons: [
-      //   {
-      //     name: "下架",
-      //     buttonEvent: () => {
-      //       alert("下架成功！您的宝贝将不会展示在页面中");
-      //     },
-      //   },
-      // ],
-      draftList: [
-        {
-          // state: "草稿已保存",
-          title: "这是一条测试标题",
-          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture:
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          price: 99,
-        },
-      ],
-      // draftButtons: [
-      //   {
-      //     name: "删除",
-      //     buttonEvent: () => {
-      //       alert("删除成功！");
-      //     },
-      //   },
-      // ],
-      downList: [
-        {
-          // state: "已下架",
-          title: "这是一条测试标题",
-          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture:
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          price: 2999,
-        },
-      ],
-      // downButtons: [
-      //   {
-      //     name: "删除",
-      //     buttonEvent: () => {
-      //       alert("删除成功！");
-      //     },
-      //   },
-      //   {
-      //     name: "重新修改",
-      //     buttonEvent: () => {},
-      //   },
-      // ],
+      tabList: ["已发布", "已下架"],
       pageLists: [],
+      // 已发布列表
+      soldingList: [
+        // {
+        //   state: "已发布",
+        //   merchandiseId: "",
+        //   title: "这是一条测试标题",
+        //   picture: "https://s2.loli.net/2023/05/07/RaxzFbhBeik79H5.png",
+        //   price: 99,
+        // },
+      ],
+      // 已下架列表
+      downList: [
+        // {
+        //   state: "已下架",
+        //   title: "这是一条测试标题",
+        //   picture: "https://s2.loli.net/2023/05/07/RaxzFbhBeik79H5.png",
+        //   price: 2999,
+        // },
+      ],
     };
   },
   methods: {
     initPages() {
-      this.pageLists = [this.soldingList, this.draftList, this.downList];
-      // this.buttonLists = [
-      //   this.soldingButtons,
-      //   this.draftButtons,
-      //   this.downButtons,
-      // ];
+      this.pageLists = [this.soldingList, this.downList];
+    },
+    getPulishedList() {
+      this.$api.merchandiseApi.getPublishedList(this.page).then((resp) => {
+        resp.data.forEach(element => {
+          this.soldingList.push(element);
+        });
+      });
+    },
+    getOutList() {
+      this.$api.merchandiseApi.getOutList(this.page).then((resp) => {
+        resp.data.forEach(element => {
+          this.downList.push(element);
+        });
+      });
     },
   },
-
-  watch: {},
+  created() {
+    this.getPulishedList();
+    this.getOutList();
+  },
+  mounted() {
+    this.initPages();
+  },
 };
 </script>
 

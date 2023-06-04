@@ -29,7 +29,7 @@ buttons是对象数组，每个对象必须包括buttonName以及对应的button
         <v-row class="mt-0">
           <v-col
             cols="8"
-            class="overflow-hidden"
+            class="overflow-hidden ma-0"
             style="text-overflow: ellipsis; white-space: nowrap"
             ><v-avatar
               size="36"
@@ -37,23 +37,30 @@ buttons是对象数组，每个对象必须包括buttonName以及对应的button
               class="mr-2"
               ><img :src="itemInfo.avatar" /></v-avatar
             ><slot name="avatar"></slot
-            ><span v-if="itemInfo.account != null && itemInfo.account != ''">{{
-              itemInfo.account
-            }}</span
-            ><slot name="account"></slot
+            ><span
+              v-if="itemInfo.userName != null && itemInfo.userName != ''"
+              >{{ itemInfo.userName }}</span
+            ><slot name="userName"></slot
           ></v-col>
-          <v-col cols="4" class="d-flex justify-end"
-            ><v-chip
+          <!-- 状态标签 -->
+          <v-col cols="4" class="d-flex justify-end">
+            <!-- FIXME: 耦合度有点高 -->
+            <v-chip
               color="brown lighten-4"
-              v-if="itemInfo.state != null && itemInfo.state != ''"
+              v-if="
+                itemInfo.state != null &&
+                itemInfo.state != '' &&
+                itemInfo.state != '已发布' &&
+                itemInfo.state != '已下架'
+              "
               >{{ itemInfo.state }}<slot name="state"></slot></v-chip
           ></v-col>
         </v-row>
         <!-- 第一行 -->
 
         <!-- 第二行 -->
-        <v-row class="my-0">
-          <v-col cols="4" sm="2" md="1" lg="1"
+        <v-row class="mt-0">
+          <v-col cols="4" sm="2" ma="1" lg="1"
             ><v-img ref="img" :src="itemInfo.picture"></v-img
             ><slot name="picture"></slot
           ></v-col>
@@ -70,12 +77,7 @@ buttons是对象数组，每个对象必须包括buttonName以及对应的button
             >
               <slot name="title"></slot>{{ itemInfo.title }}
             </div>
-            <v-list-item-subtitle
-              style="
-                font-size: small;
-
-                width: 100%;
-              "
+            <v-list-item-subtitle style="font-size: small; width: 100%"
               ><span>{{ itemInfo.content }}</span
               ><slot name="content"></slot
             ></v-list-item-subtitle>
@@ -92,8 +94,7 @@ buttons是对象数组，每个对象必须包括buttonName以及对应的button
                   font-size: 1rem;
                 "
               >
-                {{ itemInfo.money }}
-                ￥
+                ￥{{ itemInfo.money }}
               </div>
             </v-list-item-action-text>
           </v-col>
@@ -164,33 +165,19 @@ export default {
           return [
             {
               name: "下架",
-              buttonEvent: () => {
-                alert("下架成功");
-              },
-            },
-          ];
-        }
-        case "审核中": {
-          return [
-            {
-              name: "下架",
-              buttonEvent: () => {
-                alert("下架成功");
-              },
+              buttonEvent: () => {},
             },
           ];
         }
         case "已下架": {
           return [
             {
-              name: "删除",
-              buttonEvent: () => {
-                alert("删除成功");
-              },
+              name: "重新上架",
+              buttonEvent: () => {},
             },
           ];
         }
-        case "已付款": {
+        case "我已付款": {
           return [
             {
               name: "退款",
@@ -202,68 +189,48 @@ export default {
             },
           ];
         }
-        case "已发货": {
+        case "卖家已发货": {
           return [
             {
               name: "确认收货",
               buttonEvent: () => {
-                alert("收货成功");
+                // alert("确认收货")
+                this.$api.ordersApi.takeDelivery(this.itemInfo.oid).then(()=>{
+                  // TODO: 刷新页面
+                });
               },
-            },
-          ];
-        }
-        case "交易成功": {
-          return [
-            {
-              name: "退款",
-              buttonEvent: () => {},
-            },
-            {
-              name: "联系买家",
-              buttonEvent: () => {},
-            },
-          ];
-        }
-        case "已退款": {
-          return [
-            {
-              name: "举报卖家",
-              buttonEvent: () => {},
-            },
-          ];
-        }
-        case "草稿已保存": {
-          return [
-            {
-              name: "编辑",
-              buttonEvent: () => {},
             },
           ];
         }
         case "买家已付款": {
           return [
             {
-              name: "发货",
-              buttonEvent: () => {},
+              name: "去发货",
+              buttonEvent: () => {
+                this.$api.ordersApi.delivery(this.itemInfo.oid).then(()=>{
+                  // TODO: 刷新页面
+                });
+              },
             },
           ];
         }
-        case "买家已收货": {
+        case "我已发货": {
           return [
             {
-              name: "发货",
+              name: "催收货",
               buttonEvent: () => {},
             },
           ];
         }
-        case "买家已退款": {
+        case "交易成功": {
           return [
             {
-              name: "重新发布",
+              name: "查看评价",
               buttonEvent: () => {},
             },
           ];
         }
+
         case "": {
           return null;
         }

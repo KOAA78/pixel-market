@@ -1,5 +1,5 @@
 <!--
- * @Descripttion: 封装上传（单张）图片预览组件
+ * @Descripttion: 【通用/不依赖组件库】封装上传（单张）图片预览组件
  * @Author: Rui Lin
  * @Date: 2023-05-10 23:36:13
 -->

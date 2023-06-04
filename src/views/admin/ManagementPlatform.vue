@@ -189,7 +189,7 @@ export default {
 
       //分页
       currentPage: 1,
-      pageLength: 3,
+      pageLength: 1,
 
       //搜索框
       searchedName: "",
@@ -263,29 +263,34 @@ export default {
         },
       ],
       reportedList: [
-        {
-          model: 0,
-          id: 1,
-          date: "2023-05-01",
-          title: "一条商品标题",
-          tag: "原神",
-          price: "2999",
-          intro:
-            "你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色",
-          picture: [
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          ],
-          sellerId: 0,
-          sellerName: "假装这是用户名",
-          avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-          favo: false,
-          favoSnack: false,
-        },
+        // {
+        //   model: 0,
+        //   id: 1,
+        //   date: "2023-05-01",
+        //   title: "一条商品标题",
+        //   tag: "原神",
+        //   price: "2999",
+        //   intro:
+        //     "你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色",
+        //   picture: [
+        //     "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
+        //     "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
+        //     "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
+        //   ],
+        //   sellerId: 0,
+        //   sellerName: "假装这是用户名",
+        //   avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
+        //   reportedDate:"",
+        //   reportedUser:"",
+        //   reportedReason:""
+        // },
       ],
       //获取的三个列表
     };
+  },
+
+  created() {
+    this.getReportedList();
   },
 
   methods: {
@@ -298,31 +303,33 @@ export default {
     },
     goBack: () => {}, //返回到上级路由界面
 
-    // searchedWithWords(keyWord, date) {
-    //   const filterList = [];
-
-    //   var currentList = this.listGroup[this.navi];
-    //   for (let index = 0; index < currentList.length; index++) {
-    //     let id = "" + currentList[index].id;
-    //     if (
-    //       (currentList[index].title.includes(keyWord) ||
-    //         id.includes(keyWord)) &&
-    //       currentList[index].date.includes(date)
-    //     ) {
-    //       filterList.push(currentList[index]);
-    //     }
-    //   }
-
-    //   this.searchedList = filterList;
-    // },
-    //根据输入框本地搜索所有匹配item
-
     search: () => {},
     //点击查找搜索
 
     allPass: () => {
       alert("成功！");
     }, //一键通过
+
+    getReportedList() {
+      this.$api.reportedApi.getReportedList(this.currentPage).then((resp) => {
+        resp.data.forEach((element) => {
+          var list = {
+            id: element.reportedId,
+            date: element.createTime,
+            mid: element.merchandiseDetails.merchandiseId,
+            title: element.merchandiseDetails.title,
+            tag: element.merchandiseDetails.tagName,
+            picture: element.merchandiseDetails.pictures,
+            sellName: element.userName,
+            avatar: element.avatar,
+            reportedDate: element.createTime,
+            reportedUser: element.reporterName,
+            reportedReason: element.reportedReason,
+          };
+          this.reportedList.push(list);
+        });
+      });
+    },
   },
   computed: {
     getItemType: function () {
@@ -330,7 +337,6 @@ export default {
         case 0: {
           return "已审核";
         }
-
         case 1: {
           return "未审核";
         }
@@ -350,8 +356,5 @@ export default {
 <style>
 .gradient {
   background: linear-gradient(160deg, rgb(247, 228, 193), rgb(243, 172, 127));
-}
-.resize {
-  overflow: scroll;
 }
 </style>

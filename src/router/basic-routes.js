@@ -32,6 +32,14 @@ const basicRoutes = [
       title: '个人中心'
     }
   },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('@/views/admin/ManagementPlatform'),
+    meta: {
+      title: '后台'
+    }
+  },
 ];
 
 export default basicRoutes;

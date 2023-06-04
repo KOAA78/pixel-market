@@ -53,7 +53,6 @@ export default {
   },
   methods: {
     login() {
-      console.log(this.loginForm.phone);
       this.$api.userApi.login(this.loginForm).then((resp) => {
         if (resp.code == 0) {
           this.$store.commit("setToken", resp.data);

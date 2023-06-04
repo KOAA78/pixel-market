@@ -3,6 +3,7 @@
  * @Author: Rui Lin
  * @Date: 2023-05-06 08:23:24
  */
+
 import VueRouter from 'vue-router';
 import basicRoutes from './basic-routes';
 import managementRoutes from './management-routes';

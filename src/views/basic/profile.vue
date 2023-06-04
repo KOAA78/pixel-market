@@ -10,7 +10,7 @@
     <div class="user-info">
       <div class="info-content">
         <v-avatar size="72px" class="user-avatar">
-          <v-img alt="Avatar" :src="userInfo.userAvatar"></v-img
+          <v-img alt="Avatar" :src="userInfo.avatar"></v-img
         ></v-avatar>
         <span class="user-name">{{ userInfo.userName }}</span>
       </div>
@@ -56,7 +56,7 @@ export default {
     console.log(this.$store);
     console.log(this.$store.state.userId);
     this.$api.userApi.getInfo().then((resp) => {
-      this.userInfo.userName = resp.data.name;
+      this.userInfo = resp.data
       if (resp.data.avatar == "") {
         this.userInfo.userAvatar = this.defaultAvatar;
       } else {

@@ -1,3 +1,8 @@
+<!--
+ * @Descripttion: 
+ * @Author: Rui Lin
+ * @Date: 2023-05-30
+-->
 <template>
   <v-main>
     <!-- appbar -->
@@ -24,8 +29,8 @@
       <v-list class="mx-2">
         <v-list-item-group
           ><item
-            v-for="(item, index) in favorList"
-            :key="index"
+            v-for="item in favorList"
+            :key="item.merchandiseId"
             :itemInfo="item"
           >
           </item
@@ -44,50 +49,43 @@ export default {
   },
   data: () => {
     return {
+      page: {},
       // FIX：长标题只能显示一行
       favorList: [
-        {
-          avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-          account: "271920984@qq.com",
-          // state: "已收藏",
-          title: "这是一条测试标题",
-          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture:
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          price: 2999,
-        },
-        {
-          avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-          account: "271920984@qq.com",
-          // state: "已收藏",
-          title: "这是一条测试标题",
-          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture:
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          price: 2999,
-        },
-        {
-          avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-          account: "271920984@qq.com",
-          // state: "已收藏",
-          title: "这是一条测试标题",
-          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture:
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          price: 2999,
-        },
-        {
-          avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-          account: "271920984@qq.com",
-          // state: "已收藏",
-          title: "这是一条测试标题",
-          // content: "这是一个一个内容啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-          picture:
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          price: 2999,
-        },
+        // {
+        //   merchandiseId: "",
+        //   avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
+        //   userName: "271920984@qq.com",
+        //   title: "这是一条测试标题",
+        //   picture:
+        //     "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
+        //   price: 2999,
+        // },
       ],
     };
+  },
+  created() {
+    this.getFavorites();
+  },
+  methods: {
+    getFavorites() {
+      this.$api.favoritesApi.getFavorites().then((resp) => {
+        resp.data.forEach((element) => {
+          var list = {
+            merchandiseId: element.merchandiseId,
+            userName: element.userBasicInfo.userName,
+            avatar: element.userBasicInfo.avatar,
+            title: element.merchandiseDetails.title,
+            picture: element.merchandiseDetails.pictures[0],
+            price: element.merchandiseDetails.price,
+          };
+          this.favorList.push(list);
+        });
+      });
+    },
+    viewDetails(mid) {
+      this.$router.push("/details/" + mid);
+    },
   },
 };
 </script>

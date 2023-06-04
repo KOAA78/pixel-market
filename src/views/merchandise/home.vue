@@ -29,7 +29,7 @@
             rounded="lg"
             @click="displayDetails(card.merchandiseId)"
           >
-            <v-img :src="card.imgCover" height="140px"></v-img>
+            <v-img :src="card.picture" height="140px"></v-img>
             <h4 class="pa-2 brown--text">{{ card.title }}</h4>
             <p class="red--text">￥{{ card.price }}</p>
           </v-card>
@@ -57,30 +57,45 @@ export default {
   components: {
     bottNav,
   },
-  created() {
-    this.getOverviewList();
-  },
   data() {
     return {
-      page: 0,
+      page: 1,
       merchandise: [
-        {
-          merchandiseId: "1664315799854874625",
-          title: "测试商品",
-          price: 999,
-          imgCover: "https://s2.loli.net/2023/05/07/RaxzFbhBeik79H5.png",
-        },
+        // {
+        //   merchandiseId: "1664315799854874625",
+        //   title: "测试商品",
+        //   price: 999,
+        //   imgCover: "https://s2.loli.net/2023/05/07/RaxzFbhBeik79H5.png",
+        // },
       ],
     };
+  },
+    created() {
+    this.getOverviewList();
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
   },
   methods: {
     getOverviewList() {
       this.$api.merchandiseApi.getOverviewList(this.page).then((resp) => {
-        this.merchandise = resp.data;
+        resp.data.forEach(element => {
+          // console.log(element)
+          this.merchandise.push(element);
+        });
       });
     },
     displayDetails(merchandiseId) {
       this.$router.push("/details/" + merchandiseId);
+    },
+    handleScroll() {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const clientHeight = document.documentElement.clientHeight;
+      const scrollHeight = document.documentElement.scrollHeight;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        this.page++;
+        this.getOverviewList();
+      }
     },
   },
 };
