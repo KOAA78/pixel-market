@@ -23,6 +23,10 @@ import Vconsole from "vconsole";
 
 import store from './store/index.js'
 
+//引入字体和icon样式
+import "../src/assets/icons/iconfont.js"
+import '../src/assets/fonts/fontStyle.css'
+import '../src/assets/icons/iconfont.css'
 
 //开发环境使用，生产环境取消
 // if (process.env.NODE_ENV == "development") {

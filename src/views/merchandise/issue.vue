@@ -47,7 +47,8 @@
         <v-col cols="6" class="d-flex align-centertext--darken-4"
           ><v-icon x-large class="mx-1" color="brown darken-1"
             >mdi-controller</v-icon
-          ><span style="font-size: 18px" class="font-weight-bold brown--text"
+          >
+          <span style="font-size: 18px" class="font-weight-bold brown--text"
             >选择游戏</span
           >
         </v-col>

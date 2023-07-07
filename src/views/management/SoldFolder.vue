@@ -84,8 +84,6 @@
 </template>
 
 
-
-
   <script>
 import empty from "@/components/EmptyBack.vue";
 

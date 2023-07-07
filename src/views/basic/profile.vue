@@ -18,26 +18,26 @@
     <div class="user-operation">
       <div class="user-setting">
         <router-link to="/favor">
-          <v-icon right>mdi-heart-outline</v-icon>
+          <v-icon right>iconfont icon-pixellove</v-icon>
           <p>已收藏</p>
         </router-link>
       </div>
       <div class="user-setting">
         <router-link to="/published">
-          <v-icon right>mdi-cart-arrow-up</v-icon>
+          <v-icon right>iconfont icon-pixelup</v-icon>
           <p>已发布</p>
         </router-link>
       </div>
       <div class="user-setting">
-          <router-link to="/sold">
-        <v-icon right>mdi-currency-usd</v-icon>
-        <p>已卖出</p>
+        <router-link to="/sold">
+          <v-icon right>iconfont icon-pixela-xinfengpixel_huaban1</v-icon>
+          <p>已卖出</p>
         </router-link>
       </div>
       <div class="user-setting">
-         <router-link to="/bought">
-        <v-icon right>mdi-archive-check-outline</v-icon>
-        <p>已买到</p>
+        <router-link to="/bought">
+          <v-icon right>iconfont icon-pixelcheck</v-icon>
+          <p>已买到</p>
         </router-link>
       </div>
     </div>
@@ -56,7 +56,7 @@ export default {
     console.log(this.$store);
     console.log(this.$store.state.userId);
     this.$api.userApi.getInfo().then((resp) => {
-      this.userInfo = resp.data
+      this.userInfo = resp.data;
       if (resp.data.avatar == "") {
         this.userInfo.userAvatar = this.defaultAvatar;
       } else {

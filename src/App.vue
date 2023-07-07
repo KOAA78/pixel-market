@@ -19,7 +19,7 @@ export default {
   data() {
     return { isRouterAlive: true };
   },
-    mounted() {
+  mounted() {
     // 使用this.$store.state.XXX可以直接访问到仓库中的状态
     this.$store.state;
   },
@@ -38,14 +38,15 @@ export default {
 * {
   margin: 0;
   padding: 0;
+  font-family: "pixelFont";
 }
 
-.el-notification{
-   right: 70px !important;
-   width: 220px !important;
+.el-notification {
+  right: 70px !important;
+  width: 220px !important;
 }
 
-.el-notification p{
+.el-notification p {
   position: relative;
   top: -5px !important;
 }
