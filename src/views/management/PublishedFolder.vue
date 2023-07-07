@@ -42,6 +42,7 @@
     <!-- 显示内容 -->
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="(page, index) in pageLists" :key="index">
+        <!-- 空 -->
         <v-card elevation="0">
           <empty
             v-if="page.length == 0"
@@ -52,14 +53,18 @@
               >别人的世界花里胡哨，你的世界空空如也
             </template>
             <!-- FIXME: 如何插入跳转 -->
-            <template v-slot:button >发布宝贝 </template>
+            <template v-slot:button>发布宝贝 </template>
           </empty>
+
+          <!-- 具体内容 -->
           <v-list class="mx-2" v-else>
             <v-list-item-group>
               <item
                 v-for="(item, keyCode) in page"
                 :key="keyCode"
                 :itemInfo="item"
+                @refresh-out="refreshOut"
+                @click="viewDetails"
               ></item>
             </v-list-item-group>
           </v-list>
@@ -93,12 +98,7 @@ export default {
       ],
       // 已下架列表
       downList: [
-        // {
-        //   state: "已下架",
-        //   title: "这是一条测试标题",
-        //   picture: "https://s2.loli.net/2023/05/07/RaxzFbhBeik79H5.png",
-        //   price: 2999,
-        // },
+    
       ],
     };
   },
@@ -108,17 +108,23 @@ export default {
     },
     getPulishedList() {
       this.$api.merchandiseApi.getPublishedList(this.page).then((resp) => {
-        resp.data.forEach(element => {
+        resp.data.forEach((element) => {
           this.soldingList.push(element);
         });
       });
     },
     getOutList() {
       this.$api.merchandiseApi.getOutList(this.page).then((resp) => {
-        resp.data.forEach(element => {
+        resp.data.forEach((element) => {
           this.downList.push(element);
         });
       });
+    },
+    viewDetails() {},
+
+    // 刷新页面
+    refreshOut() {
+      // getOutList();
     },
   },
   created() {

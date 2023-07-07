@@ -1,6 +1,7 @@
 # 像素市场 - 前端文档
 
 - 后端仓库：*https://github.com/ligeaaa/west2-5*
+- 演示视频：*https://e1xhwsf2hde.feishu.cn/docx/OnbzdvDSBoDZmQxWTk7cuT0bn5f*
 
 #### 技术栈
 

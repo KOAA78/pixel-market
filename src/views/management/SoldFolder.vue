@@ -172,7 +172,7 @@ export default {
           var orderInfo = {
             oid: element.orderId,
             state: element.state,
-            price: element.price,
+            price: element.merchandiseDetails.price,
             avatar: element.userBasicInfo.avatar,
             userName: element.userBasicInfo.userName,
             title: element.merchandiseDetails.title,

@@ -2,7 +2,7 @@
   <div class="signin-view">
     <div class="box-intro">
       <h1 class="box-title">欢迎加入我们</h1>
-      <p class="box-sub">Welcome to the Pixel Market</p>
+      <p class="box-sub">Welcome To Pixel Market</p>
     </div>
     <div class="user-register">
       <form :model="signForm">

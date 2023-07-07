@@ -109,7 +109,7 @@ export default {
                     state: 1,
                   })
                   .then((resp) => {
-                    // TODO:且刷新页面
+                    location.reload();
                   });
                 // 且下架商品
                 this.$api.merchandiseApi.outMerchandise(this.itemInfo.mid);

@@ -14,12 +14,12 @@ const ordersApi = {
 
     // 买家查看订单
     getBuyerOrders(status) {
-        return axios.post('/orders/user/buyerGetOrders', status);
+        return axios.get(`/orders/user/buyerGetOrders/${status}`);
     },
 
     // 卖家查看订单
     getSellerOrders(status) {
-        return axios.post('/orders/user/sellerGetOrders', status);
+        return axios.get(`/orders/user/sellerGetOrders/${status}`);
     },
 
     // 卖家发货

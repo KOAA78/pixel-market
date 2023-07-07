@@ -178,8 +178,9 @@ export default {
         resp.data.forEach((element) => {
           var orderInfo = {
             oid: element.orderId,
-            state: element.state,
-            price: element.price,
+            // merchandiseId: element.merchandiseDetails.merchandiseId,
+             state: element.state,
+            price: element.merchandiseDetails.price,
             avatar: element.userBasicInfo.avatar,
             userName: element.userBasicInfo.userName,
             title: element.merchandiseDetails.title,
@@ -199,7 +200,7 @@ export default {
               break;
             }
             case 2: {
-              this.completeList.push(orderInfo);
+              this.completedList.push(orderInfo);
               break;
             }
           }

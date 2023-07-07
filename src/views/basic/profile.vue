@@ -168,4 +168,8 @@ export default {
   top: 325px;
   left: 65px;
 }
+
+a {
+  text-decoration: none;
+}
 </style>

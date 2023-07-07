@@ -267,7 +267,13 @@ export default {
     },
     addMerchandise() {
       this.$api.merchandiseApi.addMerchandise(this.publishForm).then((resp) => {
-        // this.$router.push("/details/"+resp.data);
+        this.$notify({
+          message: "发布成功",
+          offset: 115,
+          type: "success",
+          duration: 2000,
+        });
+        this.$router.push("/details/"+resp.data);
       });
     },
   },

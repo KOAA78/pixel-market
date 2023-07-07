@@ -27,11 +27,11 @@
     <!-- 收藏表 -->
     <v-card elevation="0">
       <v-list class="mx-2">
-        <v-list-item-group
+        <v-list-item-group 
           ><item
             v-for="item in favorList"
             :key="item.merchandiseId"
-            :itemInfo="item"
+            :itemInfo="item"    
           >
           </item
         ></v-list-item-group>
@@ -73,8 +73,8 @@ export default {
         resp.data.forEach((element) => {
           var list = {
             merchandiseId: element.merchandiseId,
-            userName: element.userBasicInfo.userName,
-            avatar: element.userBasicInfo.avatar,
+            userName: element.merchandiseDetails.userName,
+            avatar: element.merchandiseDetails.avatar,
             title: element.merchandiseDetails.title,
             picture: element.merchandiseDetails.pictures[0],
             price: element.merchandiseDetails.price,
@@ -83,8 +83,8 @@ export default {
         });
       });
     },
-    viewDetails(mid) {
-      this.$router.push("/details/" + mid);
+    viewDetails() {
+
     },
   },
 };

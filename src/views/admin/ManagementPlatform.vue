@@ -133,7 +133,7 @@
             <v-row
               ><v-col cols="2" class="resize">编号</v-col
               ><v-col cols="4" class="resize">商品名称</v-col
-              ><v-col cols="2" class="resize">卖家昵称</v-col
+              ><v-col cols="2" class="resize"></v-col
               ><v-col cols="2" class="resize">发布/上架日期</v-col
               ><v-col cols="2" class="resize">游戏分区</v-col></v-row
             >
@@ -199,68 +199,48 @@ export default {
       //三个导航项对应的三个页面
       listGroup: [], //页面组，为二维数组
       checkedList: [
-        {
-          model: 0,
-          id: 1,
-          title: "一条商品标题aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          tag: "原神",
-          date: "2023-05-01",
-          price: "2999",
-          intro:
-            "你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色",
-          picture: [
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          ],
-          sellerId: 0,
-          sellerName: "假装这是用户名",
-          avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-          favo: false,
-          favoSnack: false,
-        },
-        {
-          model: 0,
-          id: 2,
-          title: "一条商品标题aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          tag: "原神",
-          date: "2023-05-01",
-          price: "2999",
-          intro:
-            "你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色",
-          picture: [
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          ],
-          sellerId: 0,
-          sellerName: "假装这是用户名",
-          avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-          favo: false,
-          favoSnack: false,
-        },
+        // {
+        //   model: 0,
+        //   id: 1,
+        //   title: "一条商品标题aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        //   tag: "原神",
+        //   date: "2023-05-01",
+        //   price: "2999",
+        //   intro:
+        //     "你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色",
+        //   picture: [
+        //     "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
+        //     "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
+        //     "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
+        //   ],
+        //   sellerId: 0,
+        //   sellerName: "假装这是用户名",
+        //   avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
+        //   favo: false,
+        //   favoSnack: false,
+        // },
       ],
       unCheckedList: [
-        {
-          model: 0,
-          id: 1,
-          date: "2023-05-01",
-          title: "一条商品标题aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          tag: "原神",
-          price: "2999",
-          intro:
-            "你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色",
-          picture: [
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-            "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
-          ],
-          sellerId: 0,
-          sellerName: "假装这是用户名",
-          avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-          favo: false,
-          favoSnack: false,
-        },
+        // {
+        //   model: 0,
+        //   id: 1,
+        //   date: "2023-05-01",
+        //   title: "一条商品标题aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        //   tag: "原神",
+        //   price: "2999",
+        //   intro:
+        //     "你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色",
+        //   picture: [
+        //     "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
+        //     "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
+        //     "https://www.tandemconstruction.com/sites/default/files/styles/project_slider_main/public/images/project-images/2_3.jpg",
+        //   ],
+        //   sellerId: 0,
+        //   sellerName: "假装这是用户名",
+        //   avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
+        //   favo: false,
+        //   favoSnack: false,
+        // },
       ],
       reportedList: [
         // {
@@ -320,8 +300,8 @@ export default {
             title: element.merchandiseDetails.title,
             tag: element.merchandiseDetails.tagName,
             picture: element.merchandiseDetails.pictures,
-            sellName: element.userName,
-            avatar: element.avatar,
+            sellName: element.merchandiseDetails.userName,
+            avatar: element.merchandiseDetails.avatar,
             reportedDate: element.createTime,
             reportedUser: element.reporterName,
             reportedReason: element.reportedReason,

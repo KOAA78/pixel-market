@@ -23,120 +23,124 @@ buttons是对象数组，每个对象必须包括buttonName以及对应的button
 -->
 <template>
   <v-list-item>
-    <v-list-item-content class="pa-0"
-      ><v-container>
-        <!-- 第一行 -->
-        <v-row class="mt-0">
-          <v-col
-            cols="8"
-            class="overflow-hidden ma-0"
-            style="text-overflow: ellipsis; white-space: nowrap"
-            ><v-avatar
-              size="36"
-              v-if="itemInfo.avatar != null && itemInfo.avatar != ''"
-              class="mr-2"
-              ><img :src="itemInfo.avatar" /></v-avatar
-            ><slot name="avatar"></slot
-            ><span
-              v-if="itemInfo.userName != null && itemInfo.userName != ''"
-              >{{ itemInfo.userName }}</span
-            ><slot name="userName"></slot
-          ></v-col>
-          <!-- 状态标签 -->
-          <v-col cols="4" class="d-flex justify-end">
-            <!-- FIXME: 耦合度有点高 -->
-            <v-chip
-              color="brown lighten-4"
-              v-if="
-                itemInfo.state != null &&
-                itemInfo.state != '' &&
-                itemInfo.state != '已发布' &&
-                itemInfo.state != '已下架'
-              "
-              >{{ itemInfo.state }}<slot name="state"></slot></v-chip
-          ></v-col>
-        </v-row>
-        <!-- 第一行 -->
-
-        <!-- 第二行 -->
-        <v-row class="mt-0">
-          <v-col cols="4" sm="2" ma="1" lg="1"
-            ><v-img ref="img" :src="itemInfo.picture"></v-img
-            ><slot name="picture"></slot
-          ></v-col>
-          <v-col
-            cols="8"
-            sm="10"
-            md="11"
-            lg="11"
-            class="d-flex flex-column pb-0"
-          >
-            <div
-              style="font-size: large; min-height: 20px"
-              class="font-weight-bold mb-2 overflow-hidden"
-            >
-              <slot name="title"></slot>{{ itemInfo.title }}
-            </div>
-            <v-list-item-subtitle style="font-size: small; width: 100%"
-              ><span>{{ itemInfo.content }}</span
-              ><slot name="content"></slot
-            ></v-list-item-subtitle>
-            <v-list-item-action-text
-              class="red--text font-weight-bold text-h6 d-flex py-2 align-center"
-              ><span>￥<slot name="price"></slot>{{ itemInfo.price }}</span
-              ><slot name="money"></slot>
-              <div
-                v-if="itemInfo.money != null"
-                style="
-                  text-align: end;
-                  flex-grow: 1;
-                  color: black;
-                  font-size: 1rem;
+    <v-list-item-content class="pa-0">
+   
+        <v-container >
+          <!-- 第一行 （用户名信息）-->
+          <v-row class="mt-0">
+            <v-col
+              cols="8"
+              class="overflow-hidden ma-0"
+              style="text-overflow: ellipsis; white-space: nowrap"
+              ><v-avatar
+                size="36"
+                v-if="itemInfo.avatar != null && itemInfo.avatar != ''"
+                class="mr-2"
+                ><img :src="itemInfo.avatar" /></v-avatar
+              ><slot name="avatar"></slot
+              ><span
+                v-if="itemInfo.userName != null && itemInfo.userName != ''"
+                >{{ itemInfo.userName }}</span
+              ><slot name="userName"></slot
+            ></v-col>
+            <!-- 状态标签 -->
+            <v-col cols="4" class="d-flex justify-end">
+              <!-- FIXME: 耦合度有点高 -->
+              <v-chip
+                color="brown lighten-4"
+                v-if="
+                  itemInfo.state != null &&
+                  itemInfo.state != '' &&
+                  itemInfo.state != '已发布' &&
+                  itemInfo.state != '已下架'
                 "
-              >
-                ￥{{ itemInfo.money }}
-              </div>
-            </v-list-item-action-text>
-          </v-col>
-        </v-row>
-        <!-- 第二行 -->
+                >{{ itemInfo.state }}<slot name="state"></slot></v-chip
+            ></v-col>
+          </v-row>
+          <!-- 第一行 -->
 
-        <!-- 第三行 -->
-        <v-row v-if="buttonSwitch(itemInfo.state) != null">
-          <v-col cols="6" class="pt-0 grey--text font-weight-bold">
-            更多信息</v-col
-          >
-          <v-spacer></v-spacer>
-          <v-col
-            cols="3"
-            class="pt-0 d-flex justify-end"
-            v-if="buttonSwitch(itemInfo.state) != null"
-          >
-            <v-btn
-              x-small
-              @click.stop="buttons[0].buttonEvent"
-              elevation="0"
-              color="white"
-              >{{ buttons[0].name }}</v-btn
-            ></v-col
-          >
-          <v-spacer></v-spacer>
-          <v-col
-            cols="3"
-            class="pt-0"
-            v-if="buttonSwitch(itemInfo.state)[1] != null"
-          >
-            <v-btn
-              x-small
-              @click.stop="buttons[1].buttonEvent"
-              elevation="0"
-              color="white"
-              >{{ buttons[1].name }}</v-btn
-            ></v-col
-          >
-        </v-row>
-        <!-- 第三行 -->
-      </v-container>
+          <!-- 第二行 （商品信息）-->
+          <v-row class="mt-0">
+            <v-col cols="4" sm="2" ma="1" lg="1"
+              >
+              <!-- TODO: 整个信息点击都有反应，而不限图片区域 -->
+              <v-img ref="img" :src="itemInfo.picture" @click="viewDetails(itemInfo.merchandiseId)"></v-img
+              ><slot name="picture"></slot
+            ></v-col>
+            <v-col
+              cols="8"
+              sm="10"
+              md="11"
+              lg="11"
+              class="d-flex flex-column pb-0"
+            >
+              <div
+                style="font-size: large; min-height: 20px"
+                class="font-weight-bold mb-2 overflow-hidden"
+              >
+                <slot name="title"></slot>{{ itemInfo.title }}
+              </div>
+              <v-list-item-subtitle style="font-size: small; width: 100%"
+                ><span>{{ itemInfo.content }}</span
+                ><slot name="content"></slot
+              ></v-list-item-subtitle>
+              <v-list-item-action-text
+                class="red--text font-weight-bold text-h6 d-flex py-2 align-center"
+                ><span>￥<slot name="price"></slot>{{ itemInfo.price }}</span
+                ><slot name="money"></slot>
+                <div
+                  v-if="itemInfo.money != null"
+                  style="
+                    text-align: end;
+                    flex-grow: 1;
+                    color: black;
+                    font-size: 1rem;
+                  "
+                >
+                  ￥{{ itemInfo.money }}
+                </div>
+              </v-list-item-action-text>
+            </v-col>
+          </v-row>
+          <!-- 第二行 -->
+
+          <!-- 第三行 （相关按钮）-->
+          <v-row v-if="buttonSwitch(itemInfo.state) != null">
+            <v-col cols="6" class="pt-0 grey--text font-weight-bold">
+              更多信息</v-col
+            >
+            <v-spacer></v-spacer>
+            <v-col
+              cols="3"
+              class="pt-0 d-flex justify-end"
+              v-if="buttonSwitch(itemInfo.state) != null"
+            >
+              <v-btn
+                x-small
+                @click.stop="buttons[0].buttonEvent"
+                elevation="0"
+                color="white"
+                >{{ buttons[0].name }}</v-btn
+              ></v-col
+            >
+            <v-spacer></v-spacer>
+            <v-col
+              cols="3"
+              class="pt-0"
+              v-if="buttonSwitch(itemInfo.state)[1] != null"
+            >
+              <v-btn
+                x-small
+                @click.stop="buttons[1].buttonEvent"
+                elevation="0"
+                color="white"
+                >{{ buttons[1].name }}</v-btn
+              ></v-col
+            >
+          </v-row>
+          <!-- 第三行 -->
+        </v-container>
+     
     </v-list-item-content>
   </v-list-item>
 </template>
@@ -145,6 +149,7 @@ buttons是对象数组，每个对象必须包括buttonName以及对应的button
 <script>
 export default {
   props: ["itemInfo"],
+  inject: ["reload"],
   data() {
     return {
       buttons: [],
@@ -173,7 +178,18 @@ export default {
           let btn = [
             {
               name: "下架",
-              buttonEvent: () => {},
+              buttonEvent: () => {
+                this.$api.merchandiseApi
+                  .outMerchandise(this.itemInfo.merchandiseId)
+                  .then(() => {
+                    this.reload();
+                    // this.$api.merchandiseApi
+                    //   .getPublishedList(page)
+                    //   .then((resp) => {
+                    //     this.$emit("refresh-out", resp.data);
+                    //   });
+                  });
+              },
             },
           ];
           this.buttons = btn;
@@ -212,7 +228,8 @@ export default {
               buttonEvent: () => {
                 // alert("确认收货")
                 this.$api.ordersApi.takeDelivery(this.itemInfo.oid).then(() => {
-                  // TODO: 刷新页面
+                  // TODO: 刷新页面不闪屏
+                   this.reload();
                 });
               },
             },
@@ -227,6 +244,7 @@ export default {
               buttonEvent: () => {
                 this.$api.ordersApi.delivery(this.itemInfo.oid).then(() => {
                   // TODO: 刷新页面
+                   this.reload();
                 });
               },
             },
@@ -262,9 +280,15 @@ export default {
           return null;
       }
     },
+      viewDetails(mid) {
+    this.$router.push(`/details/${mid}`)
+
+  },
   },
   //实现图片响应式显示
   //因为refs在组件切换时会延迟于update填充，故在延迟50毫秒后再执行调整宽高
+
+
 };
 </script>
 

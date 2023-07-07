@@ -237,11 +237,9 @@ export default {
         });
     },
     checkFavo() {
-      this.$api.favoritesApi
-        .checkFavor(this.$route.params.mid)
-        .then((resp) => {
-          this.favo = resp.data;
-        });
+      this.$api.favoritesApi.checkFavor(this.$route.params.mid).then((resp) => {
+        this.favo = resp.data;
+      });
     },
     checkMerchandiseState() {
       if (this.details.state == 0) {
@@ -266,6 +264,7 @@ export default {
       this.$api.ordersApi.createOrder(this.$route.params.mid);
       this.merchandiseState = false;
     },
+    // 举报商品
     reporetMerchandise() {
       this.$api.reportedApi
         .reporetMerchandise({
@@ -273,6 +272,12 @@ export default {
           reportedReason: this.reportedReason,
         })
         .then((resp) => {
+          this.$notify({
+            message: "举报成功",
+            offset: 115,
+            type: "success",
+            duration: 2000,
+          });
           this.reportedDialog = false;
         });
     },
